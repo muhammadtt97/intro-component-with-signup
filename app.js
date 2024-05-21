@@ -4,6 +4,7 @@ const firstName = document.querySelector('.firstName');
 const lastName = document.querySelector('.lastName');
 const email = document.querySelector('.email');
 const password = document.querySelector('.password');
+const eyeIcon = document.getElementById('eye-icon')
 
 console.log(firstName);
 
@@ -11,39 +12,49 @@ console.log(firstName);
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const fName = firstName.value;
-  const lName = lastName.value;
-  const emailVal = email.value;
-  const passwordVal = password.value;
+  const fName = firstName.value.trim();
+  const lName = lastName.value.trim();
+  const emailVal = email.value.trim();
+  const passwordVal = password.value.trim();
   console.log(fName, lName, emailVal, passwordVal);
 
+  let isValid = true;
+  
   // Check first name
   if (fName === '') {
-    firstName.classList.add('error');
+    showError(firstName, 'First Name cannot be empty');
+    isValid = false;
   } else {
-    firstName.classList.remove('error');
+    removeError(firstName);
   }
   // Check last name
 
   if (lName === '') {
-    lastName.classList.add('error');
+    showError(lastName, 'Last Name cannot be empty');
+    isValid = false;
   } else {
-    lastName.classList.remove('error');
+    removeError(lastName);
   }
   // Check email
 
   if (!validateEmail(emailVal) || emailVal === '') {
-    email.classList.add('error');
+    showError(email, 'Looks like this is not an email');
+    isValid = false;
   } else {
-    email.classList.remove('error');
+    removeError(email);
   }
 
   // Check password
 
   if (passwordVal === '') {
-    password.classList.add('error');
+    showError(password, 'Password cannot be empty');
+    isValid = false;
   } else {
-    password.classList.remove('error');
+    removeError(password);
+  }
+
+  if (isValid) {
+    console.log('Form submitted successfully')
   }
 });
 
@@ -53,3 +64,39 @@ function validateEmail(email) {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+
+function showError(input, message) {
+  input.classList.add('error');
+  let errorElement = input.nextElementSibling;
+  if (!errorElement || !errorElement.classList.contains('error-message')) {
+    errorElement = document.createElement('div');
+    errorElement.classList.add('error-message');
+    input.parentNode.insertBefore(errorElement, input.nextSibling);
+  }
+  errorElement.textContent = message;
+
+  if (input.classList.contains('email')) {
+    input.value = 'email@example.com';
+    input.style.color = 'var(--red)';
+  }
+}
+
+function removeError(input) {
+  input.classList.remove('error');
+  const errorElement = input.nextElementSibling;
+  if (errorElement && errorElement.classList.contains('error-message')) {
+    errorElement.remove();
+  }
+}
+
+eyeIcon.addEventListener('click', () => {
+  if (password.type === 'password') {
+    password.type = 'text';
+    eyeIcon.classList.remove('fa-eye');
+    eyeIcon.classList.add('fa-eye-slash');
+  } else {
+    password.type = 'password';
+    eyeIcon.classList.remove('fa-eye-slash');
+    eyeIcon.classList.add('fa-eye');
+  }
+});

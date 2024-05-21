@@ -32,6 +32,7 @@ body {
   display: flex;
   align-items: center;
   gap: 4rem;
+  z-index: 1;
 }
 
 .container-text,
@@ -107,6 +108,14 @@ button {
   font-size: 1rem;
   text-transform: uppercase;
   margin-bottom: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: hsl(154, 59%, 70%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-bottom: 5px solid hsl(154, 59%, 50%);
 }
 
 small {
@@ -121,4 +130,125 @@ small span {
   color: var(--red);
   font-weight: 600;
   cursor: pointer;
+}
+
+.error-message {
+  color: var(--red);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+input.error {
+  border: 1px solid var(--red);
+}
+
+#eye-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  color: var(--grayish-blue);
+  cursor: pointer;
+  line-height: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.password-container {
+  position: relative;
+}
+
+/*media query for tablets*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  body {
+    background: url('./images/bg-intro-mobile.png') no-repeat center;
+    background-size: cover;
+    background-color: var(--red);
+    height: auto;
+  }
+
+  .container {
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 90vw;
+  }
+
+  .container-text {
+    margin-top: 2rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  input {
+    font-size: 0.875rem;
+  }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+  body {
+    background: url('./images/bg-intro-mobile.png') no-repeat center;
+    background-size: cover;
+    background-color: var(--red);
+    height: auto;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 0 20px;
+    text-align: center;
+    max-width: 90vw;
+  }
+
+  .container-text {
+    margin-top: 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    padding: 0.5rem 0;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  input {
+    font-size: 0.875rem;
+  }
+
+  small {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  small span {
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+  }
 }
